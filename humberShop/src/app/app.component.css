@@ -1,0 +1,5 @@
+html {
+  /* 1rem is now 18px. Note that this example is purely
+    illustrative. Don't set font size in pixels! */
+  font-size: 14px;
+}

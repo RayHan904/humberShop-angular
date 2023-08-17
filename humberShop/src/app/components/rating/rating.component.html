@@ -1,0 +1,68 @@
+<div class="rating">
+  <span>
+    <ng-container *ngIf="value >= 1; else halfStar1">
+      <fa-icon [icon]="fullStarIcon"></fa-icon>
+    </ng-container>
+    <ng-template #halfStar1>
+      <ng-container *ngIf="value >= 0.5; else emptyStar">
+        <fa-icon [icon]="halfStarIcon"></fa-icon>
+      </ng-container>
+      <ng-template #emptyStar>
+        <fa-icon [icon]="emptyStarIcon"></fa-icon>
+      </ng-template>
+    </ng-template>
+  </span>
+  <span>
+    <ng-container *ngIf="value >= 2; else halfStar2">
+      <fa-icon [icon]="fullStarIcon"></fa-icon>
+    </ng-container>
+    <ng-template #halfStar2>
+      <ng-container *ngIf="value >= 1.5; else emptyStar">
+        <fa-icon [icon]="halfStarIcon"></fa-icon>
+      </ng-container>
+      <ng-template #emptyStar>
+        <fa-icon [icon]="emptyStarIcon"></fa-icon>
+      </ng-template>
+    </ng-template>
+  </span>
+  <span>
+    <ng-container *ngIf="value >= 3; else halfStar3">
+      <fa-icon [icon]="fullStarIcon"></fa-icon>
+    </ng-container>
+    <ng-template #halfStar3>
+      <ng-container *ngIf="value >= 2.5; else emptyStar">
+        <fa-icon [icon]="halfStarIcon"></fa-icon>
+      </ng-container>
+      <ng-template #emptyStar>
+        <fa-icon [icon]="emptyStarIcon"></fa-icon>
+      </ng-template>
+    </ng-template>
+  </span>
+  <span>
+    <ng-container *ngIf="value >= 4; else halfStar4">
+      <fa-icon [icon]="fullStarIcon"></fa-icon>
+    </ng-container>
+    <ng-template #halfStar4>
+      <ng-container *ngIf="value >= 3.5; else emptyStar">
+        <fa-icon [icon]="halfStarIcon"></fa-icon>
+      </ng-container>
+      <ng-template #emptyStar>
+        <fa-icon [icon]="emptyStarIcon"></fa-icon>
+      </ng-template>
+    </ng-template>
+  </span>
+  <span>
+    <ng-container *ngIf="value >= 5; else halfStar5">
+      <fa-icon [icon]="fullStarIcon"></fa-icon>
+    </ng-container>
+    <ng-template #halfStar5>
+      <ng-container *ngIf="value >= 4.5; else emptyStar">
+        <fa-icon [icon]="halfStarIcon"></fa-icon>
+      </ng-container>
+      <ng-template #emptyStar>
+        <fa-icon [icon]="emptyStarIcon"></fa-icon>
+      </ng-template>
+    </ng-template>
+  </span>
+  <span class="rating-text" *ngIf="text">{{ text }}</span>
+</div>

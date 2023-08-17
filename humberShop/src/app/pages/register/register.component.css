@@ -1,0 +1,18 @@
+.mainContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formClass {
+  width: 50vw;
+}
+.form-group {
+  margin: 1rem 0;
+}
+
+button {
+  margin: 1rem 0;
+}
+
+/* Apply default styles to anchor tags */

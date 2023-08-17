@@ -1,0 +1,101 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" routerLink="/">Humber Shop</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#basic-navbar-nav"
+        aria-controls="basic-navbar-nav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="basic-navbar-nav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/cart">
+              <fa-icon [icon]="faShoppingCart"></fa-icon> Cart
+              <span *ngIf="cartItems.length > 0" class="badge bg-success ms-1">
+                {{ cartItems.length }}
+              </span>
+            </a>
+          </li>
+
+          <ng-container *ngIf="userInfo; else signInLink">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                id="username"
+              >
+                {{ userInfo.name }}
+              </a>
+            </li>
+            <li>
+              <a class="nav-link" (click)="logoutHandler()">Logout</a>
+            </li>
+
+            <li>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="username"
+              >
+                <li>
+                  <a class="dropdown-item" routerLink="/profile">Profile</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" (click)="logoutHandler()">Logout</a>
+                </li>
+              </ul>
+            </li>
+          </ng-container>
+          <ng-template #signInLink>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/login">
+                <fa-icon [icon]="faSignIn"></fa-icon> Sign In
+              </a>
+            </li>
+          </ng-template>
+          <ng-container *ngIf="userInfo && userInfo.isAdmin">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Admin
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="adminmenu"
+              >
+                <li>
+                  <a class="dropdown-item" routerLink="/admin/productlist"
+                    >Products</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" routerLink="/admin/orderlist"
+                    >Orders</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" routerLink="/admin/userlist"
+                    >Users</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

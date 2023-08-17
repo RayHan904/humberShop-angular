@@ -1,0 +1,142 @@
+<div *ngIf="isLoading; else content">Loading...</div>
+
+<ng-template #content>
+  <div id="mainDiv">
+    <div *ngIf="error">
+      <div class="alert alert-danger">
+        {{ error?.data?.message || error.error }}
+      </div>
+    </div>
+
+    <a class="btn btn-light my-3" [routerLink]="'/'">Go Back</a>
+
+    <div *ngIf="product">
+      <div class="row">
+        <div class="col-md-6">
+          <img
+            src="./assets/{{ product.image }}"
+            [alt]="product.name"
+            class="img-fluid addMargin"
+          />
+        </div>
+        <div class="col-md-3">
+          <ul class="list-group">
+            <li class="list-group-item">
+              <h3>{{ product.name }}</h3>
+            </li>
+            <li class="list-group-item">
+              <app-rating
+                [value]="product.rating"
+                [text]="product.numReviews + ' reviews'"
+              ></app-rating>
+            </li>
+            <li class="list-group-item">Price: ${{ product.price }}</li>
+            <li class="list-group-item">
+              Description: {{ product.description }}
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <div class="card">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col">Price:</div>
+                  <div class="col">
+                    <strong>${{ product.price }}</strong>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col">Status:</div>
+                  <div class="col">
+                    {{ product.countInStock > 0 ? "In Stock" : "Out Of Stock" }}
+                  </div>
+                </div>
+              </li>
+
+              <!-- Qty Select -->
+              <li class="list-group-item" *ngIf="product.countInStock > 0">
+                <div class="row">
+                  <div class="col">Qty</div>
+                  <div class="col">
+                    <select
+                      class="form-control"
+                      [(ngModel)]="qty"
+                      (ngModelChange)="setQty($event)"
+                    >
+                      <option *ngFor="let x of countInStockArray" [value]="x">
+                        {{ x }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </li>
+
+              <li class="list-group-item">
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  [disabled]="product.countInStock === 0"
+                  (click)="addToCartHandler()"
+                >
+                  Add To Cart
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="row review">
+        <div class="col-md-6">
+          <h2>Reviews</h2>
+          <div *ngIf="product.reviews.length === 0" class="alert alert-info">
+            No Reviews
+          </div>
+          <div *ngFor="let review of product.reviews" class="mb-3">
+            <strong>{{ review.name }}</strong>
+            <app-rating [value]="review.rating"></app-rating>
+            <p>{{ review.createdAt | date : "yyyy-MM-dd" }}</p>
+            <p>{{ review.comment }}</p>
+          </div>
+
+          <div>
+            <h2>Write a Customer Review</h2>
+
+            <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+              <div class="form-group my-2">
+                <label for="rating">Rating</label>
+                <select class="form-control" formControlName="rating" required>
+                  <option value="">Select...</option>
+                  <option value="1">1 - Poor</option>
+                  <option value="2">2 - Fair</option>
+                  <option value="3">3 - Good</option>
+                  <option value="4">4 - Very Good</option>
+                  <option value="5">5 - Excellent</option>
+                </select>
+              </div>
+              <div class="form-group my-2">
+                <label for="comment">Comment</label>
+                <textarea
+                  class="form-control"
+                  rows="3"
+                  formControlName="comment"
+                  required
+                ></textarea>
+              </div>
+              <button
+                class="btn btn-primary"
+                [disabled]="loadingProductReview"
+                type="submit"
+              >
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

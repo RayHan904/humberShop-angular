@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-8">
+    <h1 style="margin-bottom: 20px">Shopping Cart</h1>
+    <ng-container *ngIf="cartItems.length === 0; else cartItemsList">
+      <p>Your cart is empty Go Back</p>
+    </ng-container>
+    <ng-template #cartItemsList>
+      <ul class="list-group list-group-flush">
+        <li
+          class="list-group-item"
+          *ngFor="let item of cartItems; let i = index"
+        >
+          <app-product [product]="item"></app-product>
+        </li>
+      </ul>
+    </ng-template>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <h2>Subtotal ({{ calculateTotalItems() }} items)</h2>
+          ${{ calculateTotalPrice() }}
+        </li>
+        <li class="list-group-item">
+          <button
+            type="button"
+            class="btn btn-block"
+            [disabled]="cartItems.length === 0"
+          >
+            Proceed To Checkout
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
